@@ -30,13 +30,23 @@ function nuevoLibro(){
   });
 }
 function buscarByIsbn(isbn){
-
+  Libro.find({Isbn:isbn},(err,data)=>{
+    console.log(data);
+  });
 }
-function modificarTituloByIsbn(isbn, nuevoTitulo, autor){
-
+function modificarTituloByIsbn(isbn, nuevoTitulo, nuevoNombre, nuevoPaterno, nuevoMaterno){
+  Libro.findOneAndUpdate({Isbn:isbn},
+    {'Titulo':nuevoTitulo, 'Autor.primer':nuevoNombre, 'Autor.paterno':nuevoPaterno, 'Autor.materno':nuevoMaterno},function(err,data){
+    if (err) {
+      console.log(err);
+    }
+    console.log(data);
+  });
 }
 function main() {
-  nuevoLibro();
+  modificarTituloByIsbn(1111111,"Cómo programar en Java", "Harvey", "M", "Deitel");
+  //buscarByIsbn(1111111);
+  //nuevoLibro();
 }
 
 main();    // ejecutamos main
